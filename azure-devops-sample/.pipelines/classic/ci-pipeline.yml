@@ -16,15 +16,13 @@ jobs:
   - task: AzurePowerShell@4
     displayName: 'Generate connections.json file'
     inputs:
-      azureSubscription: '$(devServiceConnection)'
+      azureSubscription: 'BeegalaInternalSubscription(52eb3891-6f09-4350-8707-4dc848cba302)'
       ScriptType: 'FilePath'
       ScriptPath: '$(System.DefaultWorkingDirectory)/azure-devops-sample/.pipelines/scripts/Generate-Connections.ps1'
+      ScriptArguments: '-resourceGroup $(resourceGroupName) -outputlocation $(System.DefaultWorkingDirectory)/azure-devops-sample/connections.json'
       FailOnStandardError: true
-      azurePowerShellVersion: LatestVersion
+      azurePowerShellVersion: 'LatestVersion'
       pwsh: true
-      ScriptArguments: >-
-        -resourceGroup $(resourceGroupName)
-        -outputlocation $(System.DefaultWorkingDirectory)/azure-devops-sample/connections.json
 
   - task: CopyFiles@2
     displayName: 'Create project folder'
